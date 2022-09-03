@@ -1,17 +1,18 @@
 gameArray = ['Rock','Paper','Scissors']
 let computerSelection = getComputerChoice()
-let playerSelection = prompt("Enter","Rock")
 
+//returns a random choice from gameArray
 function getComputerChoice() {
     const randomElement = gameArray[Math.floor(Math.random()*gameArray.length)];
     return randomElement
 }
 
+//plays one round of Rock Paper and Scissors!
 function playRound(playerSelection = prompt("Enter","rock"), computerSelection) {
     let lowerPlayer = playerSelection.toLowerCase()
     
     if (lowerPlayer == computerSelection.toLowerCase()) {
-        console.log("It's a tie!")
+        return "It's a tie!"
     }
 
     else if (lowerPlayer=="rock") {
@@ -42,8 +43,39 @@ function playRound(playerSelection = prompt("Enter","rock"), computerSelection) 
     }
 
     else if (lowerPlayer!=gameArray[0,1,2]) {
-        console.log("Try again!")
+        return "Try again!"
     }
 }
 
-console.log(playRound(playerSelection, computerSelection));
+//Five iterations of the game, and declares the winner
+function game() {
+    let playerWin = 0;
+    let computerWin = 0;
+
+    for (let i=0; i<5; i++) {
+        let a = playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())
+        console.log(a)
+        if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("Win")) {
+            playerWin+=1
+        }
+        else if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("lose")) {
+            computerWin+=1
+        }
+    }
+    
+    //declare winner
+    if (playerWin > computerWin) {
+        console.log("Congratulations! You won. Proud of you.")
+    } 
+
+    else if (playerWin < computerWin) {
+        console.log("Sorry. You Lost. No worries, you can try again!")
+    }
+
+    else if (playerWin==computerWin) {
+        console.log("That's a tie!")
+    }
+    
+}
+
+game()
