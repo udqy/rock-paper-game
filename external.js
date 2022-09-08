@@ -1,6 +1,9 @@
 gameArray = ['Rock','Paper','Scissors']
 let computerSelection = getComputerChoice()
 
+document.getElementsByClassName("").addEventListener("click", displayDate);
+
+
 //returns a random choice from gameArray
 function getComputerChoice() {
     const randomElement = gameArray[Math.floor(Math.random()*gameArray.length)];
@@ -46,19 +49,19 @@ function playRound(playerSelection = prompt("Enter","rock"), computerSelection) 
         return "Try again!"
     }
 }
-
+/*
 //Five iterations of the game, and declares the winner
 function game() {
-    let playerWin = 0;
+    let playerWin/* = 0;
     let computerWin = 0;
 
     for (let i=0; i<5; i++) {
         let a = playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())
         console.log(a)
-        if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("Win")) {
+        if (a.includes("Win")) {
             playerWin+=1
         }
-        else if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("lose")) {
+        else if (a.includes("lose")) {
             computerWin+=1
         }
     }
@@ -77,5 +80,6 @@ function game() {
     }
     
 }
+*/
 
-game()
+console.log(playRound(playerSelection = prompt("Enter","rock"), computerSelection))
