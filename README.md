@@ -1,4 +1,5 @@
 # rock-paper-game
 
-Console only for now!
-Working on the UI, finally!
+The Rock Paper Scissors game with a Gameboy inspired theme!
+
+[Live Demo](https://udqy.github.io/rock-paper-game/)
