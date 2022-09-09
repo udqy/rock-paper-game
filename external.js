@@ -1,81 +1,56 @@
-gameArray = ['Rock','Paper','Scissors']
-let computerSelection = getComputerChoice()
+let playerScore = 0
+let computerScore = 0
+const buttons = document.querySelectorAll('input')
 
-//returns a random choice from gameArray
-function getComputerChoice() {
-    const randomElement = gameArray[Math.floor(Math.random()*gameArray.length)];
-    return randomElement
+function computerPlay() {
+    let choices = ['rock', 'paper', 'scissors']
+    return choices[Math.floor(Math.random() * choices.length)]
 }
 
-//plays one round of Rock Paper and Scissors!
-function playRound(playerSelection = prompt("Enter","rock"), computerSelection) {
-    let lowerPlayer = playerSelection.toLowerCase()
-    
-    if (lowerPlayer == computerSelection.toLowerCase()) {
-        return "It's a tie!"
-    }
-
-    else if (lowerPlayer=="rock") {
-        if (computerSelection == "Paper") {
-            return "You lose! Paper beats Rock."
-        }
-        else if (computerSelection == "Scissors") {
-            return "You Win! Rock beats Scissors."
-        }
-    }
-
-    else if (lowerPlayer=="paper") {
-        if (computerSelection == "Rock") {
-            return "You Win! Paper beats Rock."
-        }
-        else if (computerSelection == "Scissors") {
-            return "You lose! Scissor beats Paper."
-        }
-    }
-
-    else if (lowerPlayer=="scissors") {
-        if (computerSelection == "Paper") {
-            return "You Win! Scissor beats Paper"
-        }
-        else if (computerSelection == "Rock") {
-            return "You lose! Rock beats Scissor."
-        }
-    }
-
-    else if (lowerPlayer!=gameArray[0,1,2]) {
-        return "Try again!"
-    }
+function disableButtons() {
+    buttons.forEach(elem => {
+        elem.disabled = true
+    })
 }
 
-//Five iterations of the game, and declares the winner
-function game() {
-    let playerWin = 0;
-    let computerWin = 0;
+function playRound(playerSelection) {
+    let computerSelection = computerPlay()
+    let result = ""
 
-    for (let i=0; i<5; i++) {
-        let a = playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())
-        console.log(a)
-        if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("Win")) {
-            playerWin+=1
+    if ((playerSelection == 'rock' && computerSelection == 'scissors') ||
+        (playerSelection == 'scissors' && computerSelection == 'paper') ||
+        (playerSelection == 'paper' && computerSelection == 'rock')) {
+        
+        playerScore += 1
+        result = ('You win! ' + playerSelection + ' beats ' + computerSelection
+            + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+
+        if (playerScore == 5) {
+            result += '<br><br>You won the game! Reload the page to play again'
+            disableButtons()
         }
-        else if (/*playRound(playerSelection = prompt("Rock, Paper or Scissors?","rock"), getComputerChoice())*/a.includes("lose")) {
-            computerWin+=1
+    }
+    else if (playerSelection == computerSelection) {
+        result = ('It\'s a tie. You both chose ' + playerSelection
+            + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+    }
+    else {
+        computerScore += 1
+        result = ('You lose! ' + computerSelection + ' beats ' + playerSelection
+            + "<br><br>Player score: " + playerScore + "<br>Computer score: " + computerScore)
+
+        if (computerScore == 5) {
+            result += '<br><br>The Computer won the game! <br> Reload to play again'
+            disableButtons()
         }
     }
-    
-    //declare winner
-    if (playerWin > computerWin) {
-        console.log("Congratulations! You won. Proud of you.")
-    } 
 
-    else if (playerWin < computerWin) {
-        console.log("Sorry. You Lost. No worries, you can try again!")
-    }
-
-    else if (playerWin==computerWin) {
-        console.log("That's a tie!")
-    }
-    
+    document.getElementById('result').innerHTML = result
+    return
 }
 
-game()
+buttons.forEach(button =>{
+    button.addEventListener('click', function(){
+        playRound(button.value)
+    })
+})
